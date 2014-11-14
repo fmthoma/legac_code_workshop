@@ -1,0 +1,59 @@
+<project name="Workshop Project" default="all" basedir=".">
+
+    <property file="./build.properties"/>
+
+    <target name="prepare" depends="clean, dependencies">
+        <mkdir dir="${dir.output}"/>
+        <mkdir dir="${dir.tmp}"/>
+    </target>
+
+    <target name="dependencies">
+    </target>
+
+    <target name="clean">
+        <delete dir="${dir.tmp}"/>
+        <delete dir="${dir.output}"/>
+    </target>
+
+    <target name="test.notifySkipped" if="skipTests">
+        <warn>Skipping tests</warn>
+    </target>
+
+    <target name="test.integration" depends="prepare, test.notifySkipped" unless="skipTests">
+
+    </target>
+
+    <target name="test.unit" depends="prepare, test.notifySkipped" unless="skipTests">
+
+    </target>
+
+
+    <target name="phpcs" depends="prepare">
+    </target>
+
+    <target name="phpmd" depends="prepare">
+    </target>
+
+    <target name="test.coverage" depends="prepare">
+    </target>
+
+    <target name="report" depends="phpcs,phpmd,test.coverage"/>
+
+    <target name="package" depends="test">
+        <property name="dir.package" value="${dir.tmp}/package"/>
+        <mkdir dir="${dir.package}"/>
+        <copy todir="${dir.package}">
+            <fileset dir="${project.basedir}">
+                <include name="web/**"/>
+                <include name="lib/**"/>
+            </fileset>
+        </copy>
+        <tar destfile="${dir.output}/workshop.tar.gz" compression="gzip" basedir="">
+            <fileset dir="${dir.package}"/>
+        </tar>
+        <delete dir="${dir.package}"/>
+    </target>
+
+    <target name="test" depends="test.unit, test.integration"/>
+    <target name="all" depends="test, report, package"/>
+</project>

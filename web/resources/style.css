@@ -1,0 +1,15 @@
+.message {
+    margin-right: 0;
+    margin-left: 0;
+    background-color: #fff;
+    border: solid #000000;
+    border-width: 1px;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: none;
+}
+
+.user, .date {
+    margin-right: 1em;
+    background-color: lightgray;
+}
+
