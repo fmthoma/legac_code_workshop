@@ -1,0 +1,3 @@
+tng_workshop_board_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: TngWorkshopBoardBundle:Default:index }
