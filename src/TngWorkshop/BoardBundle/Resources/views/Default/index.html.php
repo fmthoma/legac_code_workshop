@@ -1,10 +1,10 @@
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="resources/style.css">
-    <link rel="stylesheet" href="resources/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="resources/bootstrap/dist/css/bootstrap-theme.css">
-    <script src="resources/jquery-2.1.1.js"></script>
-    <script src="resources/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../resources/bootstrap/dist/css/bootstrap-theme.css">
+    <script src="../resources/jquery-2.1.1.js"></script>
+    <script src="../resources/bootstrap/dist/js/bootstrap.js"></script>
 
     <title>Title</title>
 </head>
@@ -14,8 +14,6 @@ const USER = "board";
 const PASS = "board";
 const DBNAME = "tngworkshop";
 const ENTRIES_PER_PAGE = 10;
-
-require_once("../vendor/autoload.php");
 
 $db = new mysqli(HOST, USER, PASS, DBNAME);
 Logger::configure(array(
