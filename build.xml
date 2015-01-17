@@ -46,6 +46,9 @@
         <mkdir dir="${dir.package}"/>
         <copy todir="${dir.package}">
             <fileset dir="${project.basedir}">
+                <include name="app/**"/>
+                <include name="bin/**"/>
+                <include name="src/**"/>
                 <include name="vendor/**"/>
                 <include name="web/**"/>
             </fileset>
