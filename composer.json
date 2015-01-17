@@ -1,0 +1,16 @@
+{
+    "name": "TngWorkshop",
+    "type": "project",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "apache/log4php": "~2.3"
+    },
+    "minimum-stability": "stable",
+    "repositories": [
+        { "type": "composer", "url": "http://satis.php-workshop-vm/" },
+        { "packagist": false}
+    ]
+}

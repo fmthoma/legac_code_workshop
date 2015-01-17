@@ -7,12 +7,14 @@
         <mkdir dir="${dir.tmp}"/>
     </target>
 
-    <target name="dependencies">
-    </target>
-
     <target name="clean">
         <delete dir="${dir.tmp}"/>
         <delete dir="${dir.output}"/>
+    </target>
+
+    <target name="dependencies">
+        <exec command="composer install" passthru="true">
+        </exec>
     </target>
 
     <target name="test.notifySkipped" if="skipTests">
@@ -44,6 +46,7 @@
         <mkdir dir="${dir.package}"/>
         <copy todir="${dir.package}">
             <fileset dir="${project.basedir}">
+                <include name="vendor/**"/>
                 <include name="web/**"/>
                 <include name="lib/**"/>
             </fileset>
