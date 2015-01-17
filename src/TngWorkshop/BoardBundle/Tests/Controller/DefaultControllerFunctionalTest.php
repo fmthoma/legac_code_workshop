@@ -5,7 +5,7 @@ namespace TngWorkshop\BoardBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /** @group integration */
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerFunctionalTest extends WebTestCase
 {
     public function testIndex()
     {
