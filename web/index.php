@@ -15,7 +15,7 @@ const PASS = "board";
 const DBNAME = "tngworkshop";
 const ENTRIES_PER_PAGE = 10;
 
-require_once("../lib/log4php/log4php/Logger.php");
+require_once("../vendor/autoload.php");
 
 $db = new mysqli(HOST, USER, PASS, DBNAME);
 Logger::configure(array(

@@ -48,7 +48,6 @@
             <fileset dir="${project.basedir}">
                 <include name="vendor/**"/>
                 <include name="web/**"/>
-                <include name="lib/**"/>
             </fileset>
         </copy>
         <tar destfile="${dir.output}/workshop.tar.gz" compression="gzip" basedir="">
