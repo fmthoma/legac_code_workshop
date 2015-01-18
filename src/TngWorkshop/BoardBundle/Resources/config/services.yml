@@ -1,3 +1,4 @@
 services:
     board.board_service:
         class: TngWorkshop\BoardBundle\Service\BoardService
+        arguments: [@logger]

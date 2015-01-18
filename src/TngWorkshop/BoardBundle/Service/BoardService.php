@@ -2,9 +2,8 @@
 
 namespace TngWorkshop\BoardBundle\Service;
 
-use Logger;
-use LoggerLevel;
 use mysqli;
+use Psr\Log\LoggerInterface;
 
 class BoardService
 {
@@ -16,27 +15,13 @@ class BoardService
     /** @var mysqli */
     private $db;
 
-    /** @var Logger */
+    /** @var LoggerInterface */
     private $log;
 
-    public function __construct()
+    public function __construct(LoggerInterface $log)
     {
         $this->db = new mysqli(self::HOST, self::USER, self::PASS, self::DBNAME);
-        Logger::configure(array(
-            'rootLogger' => array(
-                'appenders' => array('default'),
-            ),
-            'appenders' => array(
-                'default' => array(
-                    'class' => 'LoggerAppenderConsole',
-                    'layout' => array(
-                        'class' => 'LoggerLayoutSimple'
-                    ),
-                )
-            )
-        ));
-        $this->log = new Logger("myLogger");
-        $this->log->setLevel(LoggerLevel::getLevelAll());
+        $this->log = $log;
     }
 
 
