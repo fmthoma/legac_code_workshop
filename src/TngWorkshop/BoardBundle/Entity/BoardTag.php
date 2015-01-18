@@ -4,7 +4,7 @@ namespace TngWorkshop\BoardBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Tng\Workshop\BoardBundle\Entity\BoardMessage;
+use TngWorkshop\BoardBundle\Entity\BoardMessage;
 
 /**
  * BoardTag
@@ -30,6 +30,17 @@ class BoardTag
      */
     private $tag;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="BoardMessage", mappedBy="tags")
+     */
+    private $messages;
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -62,5 +73,38 @@ class BoardTag
     public function getTag()
     {
         return $this->tag;
+    }
+
+    /**
+     * Add messages
+     *
+     * @param BoardMessage $messages
+     * @return BoardTag
+     */
+    public function addMessage(BoardMessage $messages)
+    {
+        $this->messages[] = $messages;
+
+        return $this;
+    }
+
+    /**
+     * Remove messages
+     *
+     * @param BoardMessage $messages
+     */
+    public function removeMessage(BoardMessage $messages)
+    {
+        $this->messages->removeElement($messages);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

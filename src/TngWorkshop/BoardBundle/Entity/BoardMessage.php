@@ -2,7 +2,9 @@
 
 namespace TngWorkshop\BoardBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use TngWorkshop\BoardBundle\Entity\BoardTag;
 
 /**
  * BoardMessage
@@ -42,6 +44,22 @@ class BoardMessage
      */
     private $messageText;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="BoardTag", inversedBy="messages")
+     * @ORM\JoinTable(
+     *      name="tags_comments",
+     *      joinColumns={@ORM\JoinColumn(name="commentId", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tagId", referencedColumnName="id")}
+     * )
+     */
+    private $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -115,10 +133,43 @@ class BoardMessage
     /**
      * Get messageText
      *
-     * @return string 
+     * @return string
      */
     public function getMessageText()
     {
         return $this->messageText;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param BoardTag $tags
+     * @return BoardMessage
+     */
+    public function addTag(BoardTag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param BoardTag $tags
+     */
+    public function removeTag(BoardTag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
