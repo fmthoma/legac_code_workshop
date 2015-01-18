@@ -74,21 +74,17 @@ function add_comment($db)
 
     $commentId = $db->insert_id;
 
-    $m = array();
-    preg_match_all('/#(\w*)/', $text, $m);
-    if (!empty($m)) {
-        foreach ($m[1] as $match) {
-            $result = $db->query("SELECT id FROM tags WHERE tag = '$match'");
-            $data = is_object($result) ? $result->fetch_assoc() : array();
-            if (!isset($data['id'])) {
-                $db->query('INSERT INTO tags (tag) values (\'' . $match . '\')');
-                $tag_id = $db->insert_id;
-            } else {
-                $tag_id = $data[0][0];
-            }
-            $db->query("INSERT INTO tags_comments (tagId, commentId) VALUES ($tag_id, $commentId)");
+    $hashTags = \TngWorkshop\BoardBundle\Util\HashTagFinder::findHashTagsIn($text);
+    foreach ($hashTags as $match) {
+        $result = $db->query("SELECT id FROM tags WHERE tag = '$match'");
+        $data = is_object($result) ? $result->fetch_assoc() : array();
+        if (!isset($data['id'])) {
+            $db->query('INSERT INTO tags (tag) values (\'' . $match . '\')');
+            $tag_id = $db->insert_id;
+        } else {
+            $tag_id = $data[0][0];
         }
-
+        $db->query("INSERT INTO tags_comments (tagId, commentId) VALUES ($tag_id, $commentId)");
     }
 
     return $message;
