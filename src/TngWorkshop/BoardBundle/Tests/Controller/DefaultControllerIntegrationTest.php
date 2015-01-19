@@ -5,6 +5,7 @@ namespace TngWorkshop\BoardBundle\Tests\Controller;
 use PHPUnit_Framework_MockObject_MockObject;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use TngWorkshop\BoardBundle\Entity\BoardMessage;
 use TngWorkshop\BoardBundle\Service\BoardService;
 
 /** @group unit */
@@ -74,7 +75,8 @@ class DefaultControllerIntegrationTest extends WebTestCase
     {
         $this->mockService->expects($this->once())
             ->method('postMessage')
-            ->with('My Name', 'this is a #test #string');
+            ->with('My Name', 'this is a #test #string')
+            ->willReturn(new BoardMessage());
 
         $this->mockService->expects($this->once())
             ->method('getMessages')

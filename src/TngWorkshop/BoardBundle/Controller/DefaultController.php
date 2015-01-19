@@ -3,20 +3,24 @@
 namespace TngWorkshop\BoardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use TngWorkshop\BoardBundle\Service\BoardService;
+use TngWorkshop\BoardBundle\Util\HashTagFinder;
 
 class DefaultController extends Controller
 {
+    const BOARD_SERVICE = 'board.board_service';
     const DEFAULT_ENTRIES_PER_PAGE = 10;
 
     public function indexAction(Request $request)
     {
         /** @var BoardService $boardService */
-        $boardService = $this->get('board.board_service');
+        $boardService = $this->get(self::BOARD_SERVICE);
 
         $message = "";
         if ($this->hasPostDataForNewMessage($request)) {
-            $message = $boardService->postMessage($request->request->get('user'), $request->request->get('text'));
+            $this->postMessage($request->request->get('user'), $request->request->get('text'));
+            $message = "Your entry has been added.";
         }
 
         $page = $request->query->get('p', 1);
@@ -43,5 +47,21 @@ class DefaultController extends Controller
     private function hasPostDataForNewMessage(Request $request)
     {
         return $request->request->get('user') !== null && $request->request->get('text') !== null;
+    }
+
+    /**
+     * @param string $user
+     * @param string $text
+     */
+    private function postMessage($user, $text)
+    {
+        /** @var BoardService $boardService */
+        $boardService = $this->get(self::BOARD_SERVICE);
+
+        $boardMessage = $boardService->postMessage($user, $text);
+        foreach (HashTagFinder::findHashTagsIn($text) as $tag) {
+            $boardService->linkMessageToTag($boardMessage, $tag);
+        }
+        $boardService->saveToDatabase();
     }
 }

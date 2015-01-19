@@ -61,9 +61,9 @@
         <?php foreach ($entries as $entry) { ?>
             <div class="message">
                 <div class="visible-lg-inline-block">
-                    <div class="user visible-lg-inline"><?php echo $entry['user'] ?></div>
-                    <div class="date visible-lg-inline"><?php echo $entry['date'] ?></div>
-                    <div class="text visible-lg-inline"><?php echo $entry['text'] ?></div>
+                    <div class="user visible-lg-inline"><?php echo $entry->getUserName() ?></div>
+                    <div class="date visible-lg-inline"><?php echo $entry->getDate()->format('Y-m-d H:m:s') ?></div>
+                    <div class="text visible-lg-inline"><?php echo $entry->getMessageText() ?></div>
                 </div>
             </div>
         <?php } ?>

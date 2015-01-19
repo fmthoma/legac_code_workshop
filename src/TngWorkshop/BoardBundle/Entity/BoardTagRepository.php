@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class BoardTagRepository extends EntityRepository
 {
+    /**
+     * @param string $tag
+     * @return BoardTag|null
+     */
+    public function get($tag)
+    {
+        return $this->findOneBy(array('tag' => $tag));
+    }
+
+    /**
+     * @return BoardTag[]
+     */
+    public function getAll()
+    {
+        return $this->findBy(array(), array('tag' => 'ASC'));
+    }
 }
