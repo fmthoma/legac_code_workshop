@@ -2,3 +2,11 @@
 build/
 tmp/
 vendor/
+/web/bundles/
+/app/bootstrap.php.cache
+/app/cache/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/bin/
+/composer.phar
