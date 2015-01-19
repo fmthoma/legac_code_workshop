@@ -1,4 +1,24 @@
 services:
+
+    board.entity_manager:
+        alias: doctrine.orm.default_entity_manager
+
+    board.repository.messages:
+        class: TngWorkshop\BoardBundle\Entity\BoardMessageRepository
+        factory_service: board.entity_manager
+        factory_method: getRepository
+        arguments: ["TngWorkshopBoardBundle:BoardMessage"]
+
+    board.repository.tags:
+        class: TngWorkshop\BoardBundle\Entity\BoardTagRepository
+        factory_service: board.entity_manager
+        factory_method: getRepository
+        arguments: ["TngWorkshopBoardBundle:BoardTag"]
+
     board.board_service:
         class: TngWorkshop\BoardBundle\Service\BoardService
-        arguments: [@logger]
+        arguments:
+            - @board.entity_manager
+            - @board.repository.messages
+            - @board.repository.tags
+            - @logger

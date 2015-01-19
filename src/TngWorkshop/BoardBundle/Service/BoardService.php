@@ -2,8 +2,11 @@
 
 namespace TngWorkshop\BoardBundle\Service;
 
+use Doctrine\ORM\EntityManager;
 use mysqli;
 use Psr\Log\LoggerInterface;
+use TngWorkshop\BoardBundle\Entity\BoardMessageRepository;
+use TngWorkshop\BoardBundle\Entity\BoardTagRepository;
 
 class BoardService
 {
@@ -15,13 +18,31 @@ class BoardService
     /** @var mysqli */
     private $db;
 
+    /** @var EntityManager */
+    private $entityManager;
+
+    /** @var BoardMessageRepository */
+    private $messageRepository;
+
+    /** @var BoardTagRepository */
+    private $tagsRepository;
+
     /** @var LoggerInterface */
     private $log;
 
-    public function __construct(LoggerInterface $log)
+
+    public function __construct(
+        EntityManager $entityManager,
+        BoardMessageRepository $messageRepository,
+        BoardTagRepository $tagsRepository,
+        LoggerInterface $log
+    )
     {
         $this->db = new mysqli(self::HOST, self::USER, self::PASS, self::DBNAME);
         $this->log = $log;
+        $this->entityManager = $entityManager;
+        $this->messageRepository = $messageRepository;
+        $this->tagsRepository = $tagsRepository;
     }
 
 
