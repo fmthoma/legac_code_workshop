@@ -1,7 +1,3 @@
-parameters:
-#    tng_workshop_board.example.class: TngWorkshop\BoardBundle\Example
-
 services:
-#    tng_workshop_board.example:
-#        class: %tng_workshop_board.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    board.board_service:
+        class: TngWorkshop\BoardBundle\Service\BoardService
