@@ -2,12 +2,14 @@
 
 namespace TngWorkshop\BoardBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Tng\Workshop\BoardBundle\Entity\BoardMessage;
 
 /**
  * BoardTag
  *
- * @ORM\Table()
+ * @ORM\Table(name="tags")
  * @ORM\Entity(repositoryClass="TngWorkshop\BoardBundle\Entity\BoardTagRepository")
  */
 class BoardTag

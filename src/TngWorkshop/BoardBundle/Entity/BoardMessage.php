@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * BoardMessage
  *
- * @ORM\Table()
+ * @ORM\Table(name="comments")
  * @ORM\Entity(repositoryClass="TngWorkshop\BoardBundle\Entity\BoardMessageRepository")
  */
 class BoardMessage
@@ -24,7 +24,7 @@ class BoardMessage
     /**
      * @var string
      *
-     * @ORM\Column(name="userName", type="string", length=255)
+     * @ORM\Column(name="user", type="string", length=255)
      */
     private $userName;
 
@@ -38,7 +38,7 @@ class BoardMessage
     /**
      * @var string
      *
-     * @ORM\Column(name="messageText", type="text")
+     * @ORM\Column(name="text", type="text")
      */
     private $messageText;
 
