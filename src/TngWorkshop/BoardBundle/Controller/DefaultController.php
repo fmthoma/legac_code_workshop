@@ -9,19 +9,18 @@ class DefaultController extends Controller
 {
     const DEFAULT_ENTRIES_PER_PAGE = 10;
 
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /** @var BoardService $boardService */
         $boardService = $this->get('board.board_service');
 
         $message = "";
-        if (isset($_POST['user']) && isset($_POST['text'])) {
-            $message = $boardService->postMessage($_POST['user'], $_POST['text']);
+        if ($this->hasPostDataForNewMessage($request)) {
+            $message = $boardService->postMessage($request->request->get('user'), $request->request->get('text'));
         }
 
-        $page = isset($_GET['p']) ? $_GET['p'] : 1;
-        $tag = isset($_GET['tag']) ? $_GET['tag'] : null;
-
+        $page = $request->query->get('p', 1);
+        $tag = $request->query->get('tag');
 
         return $this->render(
             'TngWorkshopBoardBundle:Default:index.html.php',
@@ -35,5 +34,14 @@ class DefaultController extends Controller
                     : $boardService->getMessages($page, self::DEFAULT_ENTRIES_PER_PAGE)
             )
         );
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    private function hasPostDataForNewMessage(Request $request)
+    {
+        return $request->request->get('user') !== null && $request->request->get('text') !== null;
     }
 }
